@@ -8,28 +8,28 @@ import Shared
 extension BlockingStrength {
     var settingTitle: String {
         switch self {
-        case .basic:
-            return .TrackingProtectionOptionBlockListLevelStandard
-        case .strict:
-            return .TrackingProtectionOptionBlockListLevelStrict
+            case .basic:
+                return .TrackingProtectionOptionBlockListLevelStandard
+            case .strict:
+                return .TrackingProtectionOptionBlockListLevelStrict
         }
     }
 
     var settingSubtitle: String {
         switch self {
-        case .basic:
-            return .TrackingProtectionStandardLevelDescription
-        case .strict:
-            return .TrackingProtectionStrictLevelDescription
+            case .basic:
+                return .TrackingProtectionStandardLevelDescription
+            case .strict:
+                return .TrackingProtectionStrictLevelDescription
         }
     }
 
     static func accessibilityId(for strength: BlockingStrength) -> String {
         switch strength {
-        case .basic:
-            return "Settings.TrackingProtectionOption.BlockListBasic"
-        case .strict:
-            return "Settings.TrackingProtectionOption.BlockListStrict"
+            case .basic:
+                return "Settings.TrackingProtectionOption.BlockListBasic"
+            case .strict:
+                return "Settings.TrackingProtectionOption.BlockListStrict"
         }
     }
 }
@@ -188,7 +188,7 @@ class ContentBlockerSettingViewController: SettingsTableViewController {
                                                       handler: nil))
                         self.present(alert, animated: true)
                     }
-            })
+                })
 
             setting.onAccessoryButtonTapped = {
                 let vc = TPAccessoryInfo()
@@ -209,22 +209,22 @@ class ContentBlockerSettingViewController: SettingsTableViewController {
                     item.enabled = enabled
                 }
                 self?.tableView.reloadData()
-        }
-		
-		// The first section header gets a More Info link
-		let title: String = .TrackerProtectionLearnMore
+            }
 
-		let font = DynamicFontHelper.defaultHelper.preferredFont(withTextStyle: .subheadline, size: 12.0)
-		var attributes = [NSAttributedString.Key: AnyObject]()
-		attributes[NSAttributedString.Key.font] = font
-		attributes[NSAttributedString.Key.foregroundColor] = UIColor.theme.general.highlightBlue
+        // The first section header gets a More Info link
+        let title: String = .TrackerProtectionLearnMore
 
-		let button = UIButton()
-		button.setAttributedTitle(NSAttributedString(string: title, attributes: attributes), for: .normal)
-		button.addTarget(self, action: #selector(moreInfoTapped), for: .touchUpInside)
+        let font = DynamicFontHelper.defaultHelper.preferredFont(withTextStyle: .subheadline, size: 12.0)
+        var attributes = [NSAttributedString.Key: AnyObject]()
+        attributes[NSAttributedString.Key.font] = font
+        attributes[NSAttributedString.Key.foregroundColor] = UIColor.theme.general.highlightBlue
+
+        let button = UIButton()
+        button.setAttributedTitle(NSAttributedString(string: title, attributes: attributes), for: .normal)
+        button.addTarget(self, action: #selector(moreInfoTapped), for: .touchUpInside)
 
         let firstSection = SettingSection(title: nil, footerTitle: NSAttributedString(string: .TrackingProtectionCellFooter), footerButton: button, children: [enabledSetting])
-		
+
 
         let optionalFooterTitle = NSAttributedString(string: .TrackingProtectionLevelFooter)
 
@@ -238,29 +238,30 @@ class ContentBlockerSettingViewController: SettingsTableViewController {
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let _defaultFooter = super.tableView(tableView, viewForFooterInSection: section) as? ThemedTableSectionHeaderFooterView
 
-		guard let defaultFooter = _defaultFooter, section == 1 else {
-			return _defaultFooter
-		}
-		
-		if currentBlockingStrength == .basic {
-			return nil
-		}
+        guard let defaultFooter = _defaultFooter, section == 1 else {
+            return _defaultFooter
+        }
+
+        if currentBlockingStrength == .basic {
+            return nil
+        }
 
         return defaultFooter
     }
 
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-		return UITableView.automaticDimension
+        return UITableView.automaticDimension
     }
 
     @objc func moreInfoTapped() {
         let viewController = SettingsContentViewController()
         viewController.url = SupportUtils.URLForTopic("tracking-protection-ios")
-		let navBarOnModal: UINavigationController = UINavigationController(rootViewController: viewController)
-		navBarOnModal.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, closure: { _ in
-			navBarOnModal.dismiss(animated: true)
-		})
-		self.present(navBarOnModal, animated: true, completion: nil)
-		
+        let navBarOnModal: UINavigationController = UINavigationController(rootViewController: viewController)
+        navBarOnModal.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(title: "Done", style: .done, closure: { _ in
+            navBarOnModal.dismiss(animated: true)
+        })
+        self.present(navBarOnModal, animated: true, completion: nil)
+
     }
 }
+
